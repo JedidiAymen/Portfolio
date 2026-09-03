@@ -2,26 +2,28 @@ import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react"
 
 import { cn } from "@/lib/utils"
 
-type ContainerProps<T extends ElementType = "div"> = {
+type SectionProps<T extends ElementType = "section"> = {
   as?: T
   children: ReactNode
-  visual?: boolean
   className?: string
+  spacing?: "none" | "sm" | "md" | "lg"
 } & Omit<ComponentPropsWithoutRef<T>, "as" | "children" | "className">
 
-export function Container<T extends ElementType = "div">({
+export function Section<T extends ElementType = "section">({
   as,
   children,
-  visual = false,
   className,
+  spacing = "md",
   ...props
-}: ContainerProps<T>) {
-  const Component = as ?? "div"
+}: SectionProps<T>) {
+  const Component = as ?? "section"
 
   return (
     <Component
       className={cn(
-        visual ? "container-visual" : "container-page",
+        spacing === "sm" && "section-space-sm",
+        spacing === "md" && "section-space",
+        spacing === "lg" && "section-space-lg",
         className,
       )}
       {...props}

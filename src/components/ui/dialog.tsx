@@ -69,6 +69,7 @@ function DialogContent({
             }
           >
             <XIcon
+              data-icon="inline-start"
             />
             <span className="sr-only">Close</span>
           </DialogPrimitive.Close>

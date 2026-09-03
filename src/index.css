@@ -2,65 +2,225 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
+@import "@fontsource/instrument-serif/400.css";
+/* ================================================================
+   AYMEN PORTFOLIO
+   Systems in Motion
+   Tailwind CSS v4
+   ================================================================ */
+
+
+/* ================================================================
+   DARK MODE VARIANT
+   ================================================================ */
 
 @custom-variant dark (&:is(.dark *));
 
+html[data-focus-mode="true"] header,
+html[data-focus-mode="true"] footer {
+  display: none;
+}
+
+html[data-lime-mode="true"] .signal-dot,
+html[data-lime-mode="true"] [data-hero-packet] {
+  filter: drop-shadow(0 0 12px var(--lime));
+  animation: signal-boost 0.7s ease-in-out infinite alternate;
+}
+
+html[data-lime-mode="true"] header a[aria-label*="Aymen"] > span:first-child {
+  border-color: var(--moss);
+  background: var(--lime);
+  color: var(--moss);
+  transform: rotate(-12deg);
+}
+
+@keyframes signal-boost {
+  to {
+    transform: scale(1.45);
+  }
+}
+
+
+/* ================================================================
+   TAILWIND THEME TOKENS
+   ================================================================ */
+
 @theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: "Geist Variable", sans-serif;
+  /* --------------------------------------------------------------
+     Fonts
+     -------------------------------------------------------------- */
+
+  --font-sans: "Geist Variable", "Geist", sans-serif;
+  --font-heading: "Geist Variable", "Geist", sans-serif;
+
+  /*
+    We will install these later:
+    Instrument Serif
+    IBM Plex Mono
+  */
+
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-mono:
+    "IBM Plex Mono",
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+
+
+  /* --------------------------------------------------------------
+     Brand colors
+     -------------------------------------------------------------- */
 
   --color-canvas: var(--canvas);
+
   --color-surface: var(--surface);
   --color-surface-strong: var(--surface-strong);
+
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
+
   --color-line: var(--line);
+
   --color-lime: var(--lime);
   --color-lime-bright: var(--lime-bright);
   --color-lime-soft: var(--lime-soft);
+
   --color-moss: var(--moss);
+
   --color-night: var(--night);
   --color-night-surface: var(--night-surface);
   --color-night-text: var(--night-text);
 
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
+
+  /* --------------------------------------------------------------
+     shadcn semantic colors
+
+     These allow the shadcn primitives to automatically inherit
+     our portfolio design system.
+     -------------------------------------------------------------- */
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+
   --color-destructive: var(--destructive);
+
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
 
+  /* --------------------------------------------------------------
+     Typography scale
+     -------------------------------------------------------------- */
+
+  --text-display-xl: clamp(3.4rem, 8vw, 7.5rem);
+
+  --text-display-lg: clamp(2.7rem, 6vw, 5.5rem);
+
+  --text-heading-1: clamp(2.2rem, 4vw, 4rem);
+
+  --text-heading-2: clamp(1.7rem, 3vw, 2.8rem);
+
+  --text-heading-3: clamp(1.25rem, 2vw, 1.75rem);
+
+  --text-body-lg: clamp(1.05rem, 1.3vw, 1.25rem);
+
+  --text-meta: 0.8125rem;
+
+
+  /* --------------------------------------------------------------
+     Radius
+     -------------------------------------------------------------- */
+
+  --radius-xs: 0.5rem;
+  --radius-sm: 0.625rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.125rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+
+  /* --------------------------------------------------------------
+     Breakpoints
+     -------------------------------------------------------------- */
+
+  --breakpoint-compact: 40rem;
   --breakpoint-medium: 48rem;
   --breakpoint-wide: 60rem;
   --breakpoint-exhibition: 80rem;
+
+
+  /* --------------------------------------------------------------
+     Motion
+     -------------------------------------------------------------- */
+
+  --ease-interface: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+
+  /* --------------------------------------------------------------
+     Shadows
+
+     Very subtle.
+     No glossy SaaS shadows.
+     -------------------------------------------------------------- */
+
+  --shadow-soft:
+    0 1px 2px rgb(23 26 18 / 0.03),
+    0 10px 30px rgb(23 26 18 / 0.05);
+
+  --shadow-card:
+    0 1px 1px rgb(23 26 18 / 0.03),
+    0 8px 24px rgb(23 26 18 / 0.05);
+
+  --shadow-floating:
+    0 4px 8px rgb(23 26 18 / 0.04),
+    0 20px 50px rgb(23 26 18 / 0.08);
 }
 
+
+/* ================================================================
+   LIGHT THEME
+   Lime Signal
+   ================================================================ */
+
 :root {
+  /* --------------------------------------------------------------
+     Core brand palette
+     -------------------------------------------------------------- */
+
   --canvas: #f4eee1;
+
   --surface: #fbf8f1;
   --surface-strong: #ece5d8;
+
   --ink: #171a12;
   --ink-muted: #676b5e;
+
   --line: #d7d0c3;
 
   --lime: #b8f04a;
@@ -68,143 +228,506 @@
   --lime-soft: #eaf8c9;
 
   --moss: #28351c;
+
   --night: #11140e;
   --night-surface: #1a1f16;
   --night-text: #f3f5e9;
 
+  --warning: #eaa83e;
+  --error: #d95d52;
+
+
+  /* --------------------------------------------------------------
+     shadcn semantic mapping
+     -------------------------------------------------------------- */
+
   --background: var(--canvas);
   --foreground: var(--ink);
+
   --card: var(--surface);
   --card-foreground: var(--ink);
+
   --popover: var(--surface);
   --popover-foreground: var(--ink);
+
+  /*
+    Default primary is dark instead of lime.
+
+    Lime should remain special and should not appear everywhere.
+  */
+
   --primary: var(--ink);
   --primary-foreground: var(--surface);
+
   --secondary: var(--surface-strong);
   --secondary-foreground: var(--ink);
+
   --muted: var(--surface-strong);
   --muted-foreground: var(--ink-muted);
-  --accent: var(--lime-soft);
+
+  --accent: var(--lime);
   --accent-foreground: var(--moss);
-  --destructive: #d95d52;
+
+  --destructive: var(--error);
+
   --border: var(--line);
   --input: var(--line);
+
   --ring: var(--lime);
 
-  --radius: 0.75rem;
+
+  /* --------------------------------------------------------------
+     Global layout
+     -------------------------------------------------------------- */
+
+  --content-width: 1240px;
+  --visual-width: 1440px;
 
   --page-padding: clamp(1.25rem, 4vw, 4rem);
-  --content-width: 77.5rem;
-  --visual-width: 90rem;
+
+  --section-space-sm: clamp(3rem, 6vw, 6rem);
   --section-space: clamp(5rem, 10vw, 10rem);
+  --section-space-lg: clamp(7rem, 14vw, 12rem);
+
+
+  /* --------------------------------------------------------------
+     Header
+     -------------------------------------------------------------- */
+
+  --header-height: 4.75rem;
+
+
+  /* --------------------------------------------------------------
+     Borders
+     -------------------------------------------------------------- */
+
+  --border-subtle: color-mix(in srgb,
+      var(--line) 72%,
+      transparent);
+
+
+  /* --------------------------------------------------------------
+     Motion timing
+     -------------------------------------------------------------- */
+
+  --duration-instant: 120ms;
+  --duration-fast: 220ms;
+  --duration-normal: 380ms;
+  --duration-slow: 650ms;
 }
 
+
+/* ================================================================
+   DARK THEME
+   Night Shift
+   ================================================================ */
+
 .dark {
-  --canvas: #11140e;
-  --surface: #1a1f16;
-  --surface-strong: #242a1e;
-  --ink: #f3f5e9;
-  --ink-muted: #a9ae9d;
-  --line: #343a2e;
+  --canvas: #0f120d;
+
+  --surface: #171b14;
+  --surface-strong: #20261b;
+
+  --ink: #f1f3e8;
+  --ink-muted: #a9af9d;
+
+  --line: #31382a;
+
+  --lime: #c8fa5a;
+  --lime-bright: #d8ff7d;
+  --lime-soft: #26331a;
+
+  --moss: #d8f5a3;
+
+  --night: #0f120d;
+  --night-surface: #171b14;
+  --night-text: #f1f3e8;
+
+
+  /* --------------------------------------------------------------
+     shadcn dark mappings
+     -------------------------------------------------------------- */
 
   --background: var(--canvas);
   --foreground: var(--ink);
+
   --card: var(--surface);
   --card-foreground: var(--ink);
+
   --popover: var(--surface);
   --popover-foreground: var(--ink);
+
   --primary: var(--lime);
-  --primary-foreground: #11140e;
+  --primary-foreground: #171a12;
+
   --secondary: var(--surface-strong);
   --secondary-foreground: var(--ink);
+
   --muted: var(--surface-strong);
   --muted-foreground: var(--ink-muted);
-  --accent: #28351c;
-  --accent-foreground: var(--night-text);
+
+  --accent: var(--lime);
+  --accent-foreground: #171a12;
+
+  --destructive: var(--error);
+
   --border: var(--line);
   --input: var(--line);
+
   --ring: var(--lime);
+
+  --border-subtle: color-mix(in srgb,
+      var(--line) 72%,
+      transparent);
 }
 
+
+/* ================================================================
+   BASE LAYER
+   ================================================================ */
+
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+
+    @apply border-border;
   }
 
+
   html {
-    @apply font-sans;
+    font-family: var(--font-sans);
+
     background: var(--canvas);
+
     scroll-behavior: smooth;
+
+    text-rendering: optimizeLegibility;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+
 
   body {
     margin: 0;
+
     min-width: 320px;
+    min-height: 100vh;
+
     background: var(--canvas);
     color: var(--ink);
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
+
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
   }
+
+
+  #root {
+    min-height: 100vh;
+  }
+
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+
+    max-width: 100%;
+  }
+
+
+  img {
+    height: auto;
+  }
+
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+
+  button {
+    cursor: pointer;
+  }
+
 
   a {
     color: inherit;
     text-decoration: none;
   }
 
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+  }
+
+
+  ::selection {
+    background: var(--lime);
+    color: #171a12;
+  }
+
+
+  /*
+    Accessibility focus system:
+
+    dark inner outline
+    +
+    lime external halo
+  */
+
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+
+    box-shadow:
+      0 0 0 5px color-mix(in srgb,
+        var(--lime) 55%,
+        transparent);
+  }
+
+
+  /*
+    Avoid weird mobile tap flash.
+  */
+
   button,
   a {
     -webkit-tap-highlight-color: transparent;
   }
+}
 
-  ::selection {
-    background: var(--lime);
-    color: var(--night);
+
+/* ================================================================
+   TYPOGRAPHY
+   ================================================================ */
+
+@layer base {
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+
+    color: var(--ink);
+
+    text-wrap: balance;
+  }
+
+
+  h1 {
+    letter-spacing: -0.055em;
+    line-height: 0.95;
+  }
+
+
+  h2 {
+    letter-spacing: -0.045em;
+    line-height: 1;
+  }
+
+
+  h3 {
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+
+
+  p {
+    text-wrap: pretty;
+  }
+
+
+  code,
+  kbd,
+  pre {
+    font-family: var(--font-mono);
   }
 }
 
+
+/* ================================================================
+   CUSTOM UTILITIES
+   ================================================================ */
+
+
+/* --------------------------------------------------------------
+   Standard content container
+   -------------------------------------------------------------- */
+
 @utility container-page {
-  width: 100%;
-  max-width: var(--content-width);
+  width: min(calc(100% - (var(--page-padding) * 2)),
+      var(--content-width));
+
   margin-inline: auto;
-  padding-inline: var(--page-padding);
 }
 
+
+/* --------------------------------------------------------------
+   Wider container for diagrams and hero compositions
+   -------------------------------------------------------------- */
+
 @utility container-visual {
-  width: 100%;
-  max-width: var(--visual-width);
+  width: min(calc(100% - (var(--page-padding) * 2)),
+      var(--visual-width));
+
   margin-inline: auto;
-  padding-inline: var(--page-padding);
 }
+
+
+/* --------------------------------------------------------------
+   Section spacing
+   -------------------------------------------------------------- */
 
 @utility section-space {
   padding-block: var(--section-space);
 }
 
+
+@utility section-space-sm {
+  padding-block: var(--section-space-sm);
+}
+
+
+@utility section-space-lg {
+  padding-block: var(--section-space-lg);
+}
+
+
+/* --------------------------------------------------------------
+   Technical/meta typography
+   -------------------------------------------------------------- */
+
 @utility text-meta {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.72rem;
-  line-height: 1.2;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-family: var(--font-mono);
+
+  font-size: 0.8125rem;
+
+  line-height: 1.4;
+
+  letter-spacing: 0.02em;
 }
 
-@utility shadow-soft {
-  box-shadow: 0 12px 40px rgb(17 20 14 / 0.08);
+
+/* --------------------------------------------------------------
+   Muted text
+   -------------------------------------------------------------- */
+
+@utility text-muted {
+  color: var(--ink-muted);
 }
 
-@utility shadow-floating {
+
+/* --------------------------------------------------------------
+   Surface
+   -------------------------------------------------------------- */
+
+@utility surface {
+  background: var(--surface);
+
+  border: 1px solid var(--line);
+
+  border-radius: 1.25rem;
+}
+
+
+/* --------------------------------------------------------------
+   Subtle surface
+   -------------------------------------------------------------- */
+
+@utility surface-subtle {
+  background: var(--surface);
+
+  border: 1px solid var(--border-subtle);
+
+  border-radius: 1.25rem;
+}
+
+
+/* --------------------------------------------------------------
+   Lime status dot
+   -------------------------------------------------------------- */
+
+@utility signal-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+
+  border-radius: 9999px;
+
+  background: var(--lime);
+
   box-shadow:
-    0 24px 60px rgb(17 20 14 / 0.14),
-    0 4px 18px rgb(17 20 14 / 0.08);
+    0 0 0 4px color-mix(in srgb,
+      var(--lime) 18%,
+      transparent);
 }
+
+
+/* --------------------------------------------------------------
+   Screen-reader-only
+   -------------------------------------------------------------- */
+
+@utility visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip: rect(0, 0, 0, 0);
+
+  white-space: nowrap;
+
+  border: 0;
+}
+
+
+/* ================================================================
+   REDUCED MOTION
+   ================================================================ */
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+
   *,
   *::before,
   *::after {
-    scroll-behavior: auto !important;
     animation-duration: 0.01ms !important;
+
     animation-iteration-count: 1 !important;
+
     transition-duration: 0.01ms !important;
+
+    scroll-behavior: auto !important;
   }
 }

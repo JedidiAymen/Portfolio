@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Layout concept: a pit-wall notebook. Light paper pages framed by dark "garage" bands
+   (hero + footer), oversized grotesk headlines, mono for every number and label. */
+:root {
+  --paper: #ECEDEF;   /* cool page white, slight blue bias */
+  --ink: #141619;     /* text + dark band */
+  --graphite: #1C1F24;/* secondary dark surface */
+  --mist: #80868F;    /* muted text */
+  --lime: #C7F464;    /* Aymen's own terminal lime; used sparingly */
+  --kerb: #E8402F;    /* start-light red, only for F1 moments */
+  --line: rgba(20, 22, 25, 0.14);
+  color-scheme: light;
+}
+
+html { -webkit-font-smoothing: antialiased; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Host Grotesk', ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  overflow-x: clip;
+}
+html { overflow-x: clip; }
+h1, h2, h3 { text-wrap: balance; }
+::selection { background: var(--lime); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; border-radius: 4px; }
+
+.gutter {
+  padding-left: max(16px, env(safe-area-inset-left, 0px), 4vw);
+  padding-right: max(16px, env(safe-area-inset-right, 0px), 4vw);
+}
+.mono { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
+.label { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* round button with a fill that rises from below on hover */
+.fill-btn { position: relative; overflow: hidden; isolation: isolate; }
+.fill-btn::before {
+  content: ""; position: absolute; left: -10%; right: -10%; top: 100%; height: 160%;
+  border-radius: 50%; background: var(--fill, var(--lime)); z-index: -1;
+  transition: top .55s cubic-bezier(.7,0,.2,1);
+}
+.fill-btn:hover::before, .fill-btn:focus-visible::before { top: -30%; }
+.fill-btn > * { transition: color .4s; }
+.fill-btn:hover > *, .fill-btn:focus-visible > * { color: var(--fill-text, var(--ink)); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

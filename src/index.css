@@ -13,7 +13,13 @@
   --kerb: #E8402F;    /* start-light red, only for F1 moments */
   --line: rgba(20, 22, 25, 0.14);
   color-scheme: light;
+  /* rgb channels for tailwind opacity modifiers (story pages and ui primitives) */
+  --c-paper: 236 237 239; --c-ink: 20 22 25; --c-bg: 236 237 239; --c-fg: 20 22 25;
+  --c-surface: 246 246 247; --c-muted: 128 134 143; --c-lime: 199 244 100; --c-kerb: 232 64 47;
+  --c-violet: 139 108 255; --c-cyan: 61 190 230; --c-flare: 232 64 47; --c-gold: 230 170 40;
+  --bg: var(--paper); --fg: var(--ink);
 }
+.serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
 
 html { -webkit-font-smoothing: antialiased; }
 html.lenis, html.lenis body { height: auto; }

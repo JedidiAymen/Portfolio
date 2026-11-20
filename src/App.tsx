@@ -65,7 +65,7 @@ function Site() {
       <AnimatePresence mode="wait">{loading && <Preloader onDone={done} />}</AnimatePresence>
       <Nav go={go} />
       <main>
-        <Hero />
+        <Hero ready={!loading} />
         <Intro go={go} />
         <Work open={open} />
         <About />

@@ -1,40 +1,14 @@
 import type { Project } from "../data";
-import f1shot from "../assets/f1lab-research.jpg";
+import { stories } from "../stories";
+import { CapexCity, CapexDecide, CapexMap } from "./SmartCapexArt";
+import f1shot from "../assets/shots/f1-replay.webp";
 
-// Deterministic pseudo-random so covers look the same every render.
-const rand = (seed: number) => () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
 
 function Frame({ p, children, className = "" }: { p: Project; children: React.ReactNode; className?: string }) {
   return (
     <div className={`relative h-full w-full overflow-hidden ${className}`} style={{ background: p.tone.bg, color: p.tone.fg }}>
       {children}
     </div>
-  );
-}
-
-function SmartCapex({ p }: { p: Project }) {
-  const r = rand(7);
-  const cols = 18, rows = 11;
-  const cells = Array.from({ length: cols * rows }, (_, i) => {
-    const x = i % cols, y = Math.floor(i / cols);
-    const hot = Math.exp(-((x - 12) ** 2 + (y - 4) ** 2) / 18) + 0.6 * Math.exp(-((x - 4) ** 2 + (y - 8) ** 2) / 10);
-    return Math.min(1, hot * 0.9 + r() * 0.25);
-  });
-  return (
-    <Frame p={p}>
-      <svg viewBox="0 0 360 240" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        {cells.map((v, i) => {
-          const x = (i % cols) * 20 + ((Math.floor(i / cols) % 2) * 10), y = Math.floor(i / cols) * 22;
-          return <polygon key={i} points={`${x + 10},${y} ${x + 19},${y + 5} ${x + 19},${y + 16} ${x + 10},${y + 21} ${x + 1},${y + 16} ${x + 1},${y + 5}`}
-            fill={v > 0.62 ? p.tone.accent : `rgba(233,241,244,${0.05 + v * 0.35})`} opacity={v > 0.62 ? 0.4 + v * 0.6 : 1} />;
-        })}
-      </svg>
-      <div className="absolute bottom-[8%] left-[7%] mono text-[clamp(10px,1.4vw,13px)] leading-relaxed">
-        <div className="opacity-60">cell-hours</div>
-        <div className="text-[clamp(22px,4vw,44px)] font-medium tnum" style={{ fontFamily: "inherit" }}>99.18M</div>
-        <div><span style={{ color: p.tone.accent }}>●</span> upgrade candidates</div>
-      </div>
-    </Frame>
   );
 }
 
@@ -66,7 +40,7 @@ function F1({ p }: { p: Project }) {
   return (
     <Frame p={p}>
       <div className="absolute -right-[6%] top-[10%] w-[78%] overflow-hidden rounded-lg shadow-2xl" style={{ transform: "rotate(-4deg)", boxShadow: "0 30px 60px rgba(0,0,0,.55)" }}>
-        <img src={f1shot} alt="F1LAB Research & reliability view showing the benchmark ledger and season bias chart" className="block w-full" loading="lazy" />
+        <img src={f1shot} alt="F1LAB race replay of Monza 2025" className="block w-full" loading="lazy" />
       </div>
       <div className="absolute bottom-[8%] left-[7%]">
         <div className="mb-2 h-1 w-10" style={{ background: p.tone.accent }} />
@@ -214,11 +188,17 @@ function Gods({ p }: { p: Project }) {
 }
 
 const MAP: Record<string, (x: { p: Project }) => JSX.Element> = {
-  "smart-capex": SmartCapex, sentinel: Sentinel, f1lab: F1, ansibleguard: Ansible, "smart-checkout": Checkout,
+  sentinel: Sentinel, f1lab: F1, ansibleguard: Ansible, "smart-checkout": Checkout,
   "penalty-kick": Penalty, aigoat: Aigoat, letudiant: Etudiant, gods: Gods,
 };
 
+const ART = { "capex-city": CapexCity, "capex-map": CapexMap, "capex-decide": CapexDecide };
+
+// Real capture (or illustration) first; the drawn cover only when there is none.
 export default function Cover({ p }: { p: Project }) {
+  const shot = stories[p.slug]?.shots.find((s) => !s.video);
+  if (shot?.illus) { const A = ART[shot.illus]; return <div className="h-full w-full"><A /></div>; }
+  if (shot?.src) return <img src={shot.src} alt={shot.caption} loading="lazy" className="h-full w-full object-cover object-left-top" />;
   const C = MAP[p.slug];
   return C ? <C p={p} /> : <Frame p={p}><div /></Frame>;
 }
